@@ -1,0 +1,30 @@
+{
+  "name": "font-awesome-svg",
+  "version": "0.1.0",
+  "description": "Split Font Awesome icons into individual SVG files",
+  "keywords": [
+    "Font-Awesome",
+    "icon",
+    "SVG"
+  ],
+  "homepage": "https://github.com/riobard/font-awesome-svg",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/riobard/font-awesome-svg.git"
+  },
+  "bugs": {
+    "url": "https://github.com/riobard/font-awesome-svg/issues"
+  },
+  "devDependencies": {
+    "babel": "^4.7.3",
+    "font-awesome": "^4.3.0",
+    "svgo": "^0.5.0",
+    "xml2js": "^0.4.5"
+  },
+  "scripts": {
+    "build": "babel-node build.js",
+    "env": "env"
+  },
+  "author": "Riobard Zhan <me@riobard.com> (https://riobard.com)",
+  "license": "MIT"
+}
