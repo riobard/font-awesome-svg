@@ -33,13 +33,19 @@ function extract(f) {
     if (err) { throw err; }
 
     // Read http://www.w3.org/TR/SVG/fonts.html for details
-    const units_per_em = (root.svg.defs[0].font[0]['font-face'][0].$['units-per-em']|0) || 1000;
-    const ascent = root.svg.defs[0].font[0]['font-face'][0].$.ascent|0;
-    const descent = root.svg.defs[0].font[0]['font-face'][0].$.descent|0;
-    const horiz_adv_x = root.svg.defs[0].font[0].$['horiz-adv-x']|0;
-    const vert_adv_y = (root.svg.defs[0].font[0].$['vert-adv-y']|0) || units_per_em;
-    const metrics = {units_per_em, ascent, descent, horiz_adv_x, vert_adv_y};
-    const glyphs = root.svg.defs[0].font[0].glyph;
+    const font = root.svg.defs[0].font[0];
+    const fontface = font['font-face'][0];
+    const units = (fontface.$['units-per-em']|0) || 1000;
+    const ascent = fontface.$.ascent|0; // or units - voy if unset
+    const descent = fontface.$.descent|0; // or voy if unset
+    const hox = font.$['horiz-origin-x']|0;
+    const hoy = font.$['horiz-origin-y']|0;
+    const hdx = font.$['horiz-adv-x']|0;
+    const vox = (font.$['vert-origin-x']|0) || (hdx/2);
+    const voy = (font.$['vert-origin-y']|0) || ascent;
+    const vdy = (font.$['vert-adv-y']|0) || units;
+    const metrics = {units, ascent, descent, hox, hoy, hdx, vox, voy, vdy};
+    const glyphs = font.glyph;
     const aliases = loadAliases();
 
     for (let g of glyphs) {
@@ -47,8 +53,8 @@ function extract(f) {
         f(metrics, {
           id: `fa-${alias}`,
           path: g.$.d,
-          width: (g.$['horiz-adv-x']|0) || horiz_adv_x,
-          height: (g.$['vert-adv-y']|0) || vert_adv_y,
+          width: (g.$['horiz-adv-x']|0) || hdx,
+          height: (g.$['vert-adv-y']|0) || vdy,
         });
       }
     }
@@ -71,7 +77,7 @@ function main() {
 
   extract((metrics, g) => {
     const path = `${dir}/${g.id}.svg`;
-    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${g.width} ${g.height}">
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${metrics.hox} ${metrics.hoy} ${g.width} ${g.height}">
       <g transform="translate(0 ${g.height + metrics.descent}) scale(1 -1)" fill="${color}">
         <path d="${g.path}" />
       </g>
