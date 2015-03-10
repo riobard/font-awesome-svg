@@ -7,8 +7,8 @@ import svgo from 'svgo';
 
 // Load Unicode/aliases mapping. One Unicode char might have multiple aliases.
 function loadAliases() {
-  const less = fs.readFileSync('./node_modules/font-awesome/less/variables.less').toString();
-  const re = /@fa-var-([a-z-]+):\s*"\\([0-9a-f]+)";/g;
+  const less = fs.readFileSync(require.resolve('font-awesome/less/variables.less')).toString();
+  const re = /@fa-var-([a-z0-9-]+)\s*:\s*"\\([0-9a-f]+)";/g;
   const m = {}; // id -> [alias0, alias1, alias2, ...]
 
   let match;
@@ -28,7 +28,7 @@ function loadAliases() {
 
 // Extract font metrics and glyph data from SVG font file.
 function extract(f) {
-  const svgfont = fs.readFileSync('./node_modules/font-awesome/fonts/fontawesome-webfont.svg');
+  const svgfont = fs.readFileSync(require.resolve('font-awesome/fonts/fontawesome-webfont.svg'));
   xml2js.parseString(svgfont, (err, root) => {
     if (err) { throw err; }
 
