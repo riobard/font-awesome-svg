@@ -7,24 +7,30 @@ individual SVG files.
 
 ## Installation
 
-    npm install -g font-awesome-svg
+```sh
+npm install -g font-awesome-svg
+```
 
 
 
-## Commandline Usage
+## CLI Usage
 
 
-    fa2svg --dir OUTPUT_DIR [--color '#000' ] [--verbose]
+```sh
+fa2svg --dir OUTPUT_DIR [--color '#000' ] [--verbose]
+```
 
 
 ## API Usage
 
 
-    var fa2svg = require('font-awesome-svg');
-    var dir = 'fa-svg';
-    var color = '#fff';
-    ver verbose = true;
-    fa2svg(dir, color, verbose);
+```JavaScript
+var fa2svg = require('font-awesome-svg');
+var dir = 'fa-svg';
+var color = '#fff';
+ver verbose = true;
+fa2svg(dir, color, verbose);
+```
 
 
 
@@ -34,4 +40,6 @@ individual SVG files.
 Transpile source code from ES6 to ES5 for distribution.
 
 
-    npm run build
+```sh
+npm run build
+```
