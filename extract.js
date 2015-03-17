@@ -52,7 +52,7 @@ function run() {
   const args = minimist(process.argv.slice(2));
   const usage = `Usage: ${process.argv[1]} --dir OUTPUT_DIR [--color '#000'] [--verbose]`;
 
-  if (args.h || args.help) {
+  if (args.help || args.h) {
     console.log(usage);
     return;
   }
@@ -62,7 +62,7 @@ function run() {
     return;
   }
 
-  splitSVG(args.dir, args.color, args.v || args.verbose);
+  splitSVG(args.dir || args.d, args.color || args.c, args.verbose || args.v);
 }
 
 
