@@ -28,7 +28,7 @@ fa2svg --dir OUTPUT_DIR [--color '#000' ] [--verbose]
 var fa2svg = require('font-awesome-svg');
 var dir = 'fa-svg';
 var color = '#fff';
-ver verbose = true;
+var verbose = true;
 fa2svg(dir, color, verbose);
 ```
 
